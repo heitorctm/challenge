@@ -2,7 +2,7 @@ import os
 import numpy as np
 import pandas as pd
 import tensorflow as tf
-from .tripletas import gerar_tripleta_aleatoria, gerar_embeddings, calcular_similaridade
+from .tripletas import gerar_embeddings, calcular_similaridade
 
 
 def avaliar_modelo_tripleta(

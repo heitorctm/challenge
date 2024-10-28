@@ -5,7 +5,6 @@ from .data_aug import data_augmentation
 def criar_dataset(imagens_paths, labels, batch_size, rede, modelo_embedding, shuffle=False, repeat=True, data_aug=False):
     _, preprocess_input, img_tamanho = redes[rede]
     
-    # Cria o dataset com pares individuais de caminho de imagem e rótulo
     dataset = tf.data.Dataset.from_tensor_slices((imagens_paths, labels))
 
     # Função para processar a imagem
@@ -22,13 +21,11 @@ def criar_dataset(imagens_paths, labels, batch_size, rede, modelo_embedding, shu
     if shuffle:
         dataset = dataset.shuffle(buffer_size=1000)
 
-    # Agrupa em batches de imagens e labels individuais
     dataset = dataset.batch(batch_size)
 
     if repeat:
         dataset = dataset.repeat()
 
-    # Adiciona a etapa para gerar as tripletas dinamicamente
     dataset = dataset.map(lambda imagens, labels: gerar_tripletas_dinamicamente(imagens, labels, modelo_embedding), num_parallel_calls=tf.data.AUTOTUNE)
 
     dataset = dataset.prefetch(buffer_size=tf.data.AUTOTUNE)

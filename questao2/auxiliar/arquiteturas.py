@@ -64,9 +64,7 @@ def criar_modelo_siamese(rede, weights, otimizador, embedding_model, margin=2):
     return siamese_net
 
 def criar_dataset(imagens_paths, labels, batch_size, rede, shuffle=False, repeat=True, data_aug=False):
-    """
-    Prepara o dataset com as tripletas para treino, validação e teste.
-    """
+
     _, preprocess_input, img_tamanho = redes[rede]
     dataset = tf.data.Dataset.from_tensor_slices((imagens_paths, labels))
 
@@ -96,9 +94,7 @@ def configurar_pipeline(imagens_paths_treino, labels_treino, imagens_paths_val, 
                         denses, dropouts, pooling, regularizacao_tipo=None,
                         regularizacao_valor=0.001, margin=2, embedding_size=128,
                         batch_size=32, shuffle=True, data_aug=False):
-    """
-    Função principal para configurar o pipeline completo: cria o modelo e os datasets.
-    """
+
     if rede in redes:
         RedeClasse, _, _ = redes[rede]
         base_model = RedeClasse(weights=weights, include_top=False)

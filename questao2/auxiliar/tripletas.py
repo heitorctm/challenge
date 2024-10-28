@@ -11,7 +11,6 @@ def gerar_tripleta_aleatoria(dataset):
     labels = dataset['label'].unique()
 
     while True:
-        # Escolhe uma label e uma imagem âncora aleatória
         label_ancora = random.choice(labels)
         imagens_positivas = grupos_por_label.get_group(label_ancora)['id'].tolist()
         
@@ -38,10 +37,7 @@ def gerar_embeddings(modelo, ancora_img, positivo_img, negativo_img):
     return ap_distance, an_distance
 
 def calcular_similaridade(ap_distance, an_distance, metrica="euclidean"):
-    """
-    Calcula a similaridade entre as distâncias âncora-positivo e âncora-negativo
-    usando a métrica especificada.
-    """
+
     if metrica == "euclidean":
         positive_similarity = np.round((1 / (1 + ap_distance)) * 100, 2)
         negative_similarity = np.round((1 / (1 + an_distance)) * 100, 2)
